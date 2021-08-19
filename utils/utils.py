@@ -11,16 +11,17 @@ with open('safety/utils/imagenet_labels.json', 'r') as f:
 
 
 def load_example_image(preprocess=True):
-    """Loads an example image.
+    """Loads an example image of a Panda and its label.
 
     Args:
         preprocess (bool): If true, applies imagenet preprocessing.
     """
     image = np.load('safety/utils/images/panda.npy')
+    label = 388
     if preprocess:
         image = torch.Tensor(image)
         image = IMAGENET_NORMALIZE(image)
-    return image
+    return image, label
 
 
 def make_single_prediction(model, image):
