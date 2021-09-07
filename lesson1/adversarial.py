@@ -219,6 +219,16 @@ def attack_normal_model(
     plt.show()
 
 
+def get_adv_trained_model():
+    attack_model, _ = model_utils.make_and_restore_model(
+        arch='resnet18', 
+        dataset=datasets.ImageNet(''), 
+        resume_path='safety/lesson1/checkpoints/resnet18_linf_eps8.0.ckpt'
+    )
+    model = attack_model.model
+    return model
+
+
 def attack_adversarially_trained_model(
     targeted_adv_attack, 
     target_idx=10, 
@@ -227,12 +237,7 @@ def attack_adversarially_trained_model(
     step_size=0.01
 ):
     # Load the models
-    attack_model, _ = model_utils.make_and_restore_model(
-        arch='resnet18', 
-        dataset=datasets.ImageNet(''), 
-        resume_path='safety/lesson1/checkpoints/resnet18_linf_eps8.0.ckpt'
-    )
-    model = attack_model.model
+    model = get_adv_trained_model()
     print('')
     
     # Load the preprocessed image
