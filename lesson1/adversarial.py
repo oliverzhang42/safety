@@ -22,7 +22,6 @@ def test_untargeted_FGSM(untargeted_FGSM, eps=0.01):
     # Generate Adversarial Example
     true_index = torch.Tensor([true_index]).type(torch.long)
     adv_image = untargeted_FGSM(image.unsqueeze(0), true_index, model, eps).squeeze(0)
-    print(adv_image.shape)
 
     # Display Results
     _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image.squeeze(0))
@@ -53,7 +52,7 @@ def test_targeted_FGSM(targeted_FGSM, target_idx=10, eps=0.01):
     image, _ = utils.load_example_image(preprocess=True)
 
     # Generate predictions
-    _, index, confidence = utils.make_single_prediction(model, image.unsqueeze(0))
+    _, index, confidence = utils.make_single_prediction(model, image)
     label = utils.get_imagenet_label(index)
     label = label.split(',')[0]
 
@@ -63,7 +62,7 @@ def test_targeted_FGSM(targeted_FGSM, target_idx=10, eps=0.01):
     print(f'The target index corresponds to a label of {target_label}!')
 
     # Generate Adversarial Example
-    adv_image = targeted_FGSM(image, [target_idx], model, eps).squeeze(0)
+    adv_image = targeted_FGSM(image.unsqueeze(0), [target_idx], model, eps).squeeze(0)
 
     # Display Results
     _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image.unsqueeze(0))
