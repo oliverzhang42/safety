@@ -36,6 +36,6 @@ def test_untargeted_FGSM(untargeted_FGSM):
     display_image = utils.IMAGENET_DENORMALIZE(image).detach().cpu().numpy()
     display_adv_image = utils.IMAGENET_DENORMALIZE(adv_image).detach().cpu().numpy()
     _, axes = plt.subplots(1,2)
-    axes[0][0].imshow(display_image)
-    axes[0][1].imshow(display_adv_image)
+    axes[0,0].imshow(display_image)
+    axes[0,1].imshow(display_adv_image)
     plt.show()
