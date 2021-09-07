@@ -54,7 +54,7 @@ def make_batch_prediction(model, image_batch):
     pred = model.forward(image_batch)
     pred = F.softmax(pred, dim=1)
     pred_indices = pred.argmax(dim=1).item()
-    pred_confidences = pred[pred_indices]
+    pred_confidences = pred[range(pred.shape[0]), pred_indices]
     return pred, pred_indices, pred_confidences
 
 
