@@ -6,7 +6,7 @@ from safety.utils import utils
 from torchvision import models
 
 
-def test_untargeted_FGSM(untargeted_FGSM):
+def test_untargeted_FGSM(untargeted_FGSM, eps=0.01):
     # Load the models
     model = models.resnet18(pretrained=True, progress=False).eval()
     print('')
@@ -21,7 +21,7 @@ def test_untargeted_FGSM(untargeted_FGSM):
 
     # Generate Adversarial Example
     true_index = torch.Tensor([true_index]).type(torch.long)
-    adv_image = untargeted_FGSM(image, true_index, model, 1)
+    adv_image = untargeted_FGSM(image, true_index, model, eps)
 
     # Display Results
     _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image)
