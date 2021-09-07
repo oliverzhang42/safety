@@ -22,10 +22,10 @@ def load_example_image(preprocess=True):
         preprocess (bool): If true, applies imagenet preprocessing.
     """
     image = np.load('safety/utils/images/panda.npy')
+    image = torch.Tensor(image)
     label = 388
     if preprocess:
         image = image / 255
-        image = torch.Tensor(image)
         image = IMAGENET_NORMALIZE(image)
     return image, label
 
