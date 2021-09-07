@@ -1,6 +1,7 @@
 # Everything Necessary for the Adversarial Examples Class
-import torch
 import matplotlib.pyplot as plt
+import numpy as np
+import torch
 from safety.utils import utils
 from torchvision import models
 
@@ -34,7 +35,9 @@ def test_untargeted_FGSM(untargeted_FGSM):
 
     # Display Images
     display_image = utils.IMAGENET_DENORMALIZE(image).detach().cpu().numpy()
+    display_image = np.moveaxis(display_image, 0, 2)
     display_adv_image = utils.IMAGENET_DENORMALIZE(adv_image).detach().cpu().numpy()
+    display_adv_image = np.moveaxis(display_adv_image, 0, 2)
     _, axes = plt.subplots(1,2)
     axes[0].imshow(display_image)
     axes[1].imshow(display_adv_image)
