@@ -36,7 +36,8 @@ def make_single_prediction(model, image):
         model (nn.Module): the prediction network
         image (torch.Tensor): the input image
     """
-    pred = model.forward(image.unsqueeze(0))[0]
+    pred = model.forward(image.unsqueeze(0))
+    pred = torch.softmax(pred)[0]
     pred_index = pred.argmax().item()
     pred_confidence = pred[pred_index]
     return pred, pred_index, pred_confidence
