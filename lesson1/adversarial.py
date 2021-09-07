@@ -92,6 +92,7 @@ def untargeted_PGD():
 def targeted_PGD():
     pass
 
+'''
 class PGD(nn.Module):
     def __init__(self, epsilon, num_steps, step_size, grad_sign=True):
         super().__init__()
@@ -168,3 +169,4 @@ class PGDTarget(nn.Module):
             adv_bx = torch.min(torch.max(adv_bx, bx - self.epsilon), bx + self.epsilon).clamp(0, 1)
 
         return adv_bx
+'''
