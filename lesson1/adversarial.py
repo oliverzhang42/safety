@@ -14,6 +14,7 @@ def test_untargeted_FGSM(untargeted_FGSM, eps=0.01):
     # Load the preprocessed image
     image, true_index = utils.load_example_image(preprocess=True)
     image = image.unsqueeze(0)
+    print(image.shape)
 
     # Generate predictions
     _, index, confidence = utils.make_single_prediction(model, image)
@@ -22,7 +23,8 @@ def test_untargeted_FGSM(untargeted_FGSM, eps=0.01):
 
     # Generate Adversarial Example
     true_index = torch.Tensor([true_index]).type(torch.long)
-    adv_image = untargeted_FGSM(image, true_index, model, eps)[0]
+    adv_image = untargeted_FGSM(image, true_index, model, eps)
+    print(adv_image.shape)
 
     # Display Results
     _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image)
