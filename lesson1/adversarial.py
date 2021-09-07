@@ -227,7 +227,7 @@ def attack_adversarially_trained_model(
     
     # Load the preprocessed image
     image, _ = utils.load_example_image(preprocess=False)
-    image /= 255
+    image = image / 255
 
     # Generate predictions
     _, index, confidence = utils.make_single_prediction(model, image)
