@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 import torch.nn.functional as F
+from robustness import datasets, model_utils
 from safety.utils import utils
 from torchvision import models
 
@@ -216,8 +217,12 @@ def attack_adversarially_trained_model(
     step_size=0.01
 ):
     # Load the models
-    with open('safety/lesson1/resnet18_linf_eps8.0.ckpt', 'r') as f:
-        model = torch.load(f).eval()
+    attack_model, _ = model_utils.make_and_restore_model(
+        arch='resnet18', 
+        dataset=datasets.ImageNet(''), 
+        resume_path='safety/lesson1/resnet18_linf_eps8.0.ckpt'
+    )
+    model = attack_model.model
     print('')
     
     # Load the preprocessed image
