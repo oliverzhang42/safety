@@ -230,7 +230,8 @@ def attack_adversarially_trained_model(
     attack_model, _ = model_utils.make_and_restore_model(
         arch='resnet18', 
         dataset=datasets.ImageNet(''), 
-        resume_path='safety/lesson1/resnet18_linf_eps8.0.ckpt'
+        resume_path='safety/lesson1/resnet18_l2_eps3.ckpt'
+        #resume_path='safety/lesson1/resnet18_linf_eps8.0.ckpt'
     )
     model = attack_model.model
     print('')
