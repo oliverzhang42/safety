@@ -21,7 +21,7 @@ def test_untargeted_FGSM(untargeted_FGSM, eps=0.01):
 
     # Generate Adversarial Example
     true_index = torch.Tensor([true_index]).type(torch.long)
-    adv_image = untargeted_FGSM(image.unsqueeze(0), true_index, model, eps).squeeze(0)
+    adv_image = untargeted_FGSM(image.unsqueeze(0), true_index, model, eps=eps).squeeze(0)
 
     # Display Results
     _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image.squeeze(0))
@@ -62,7 +62,7 @@ def test_targeted_FGSM(targeted_FGSM, target_idx=10, eps=0.01):
     print(f'The target index corresponds to a label of {target_label}!')
 
     # Generate Adversarial Example
-    adv_image = targeted_FGSM(image.unsqueeze(0), [target_idx], model, eps).squeeze(0)
+    adv_image = targeted_FGSM(image.unsqueeze(0), [target_idx], model, eps=eps).squeeze(0)
 
     # Display Results
     _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image.squeeze(0))
@@ -125,7 +125,9 @@ class PGD(nn.Module):
             adv_bx = torch.min(torch.max(adv_bx, bx - self.epsilon), bx + self.epsilon).clamp(0, 1)
 
         return adv_bx
+'''
 
+'''
 
 class PGDTarget(nn.Module):
     def __init__(self, epsilon, num_steps, step_size, grad_sign=True):
