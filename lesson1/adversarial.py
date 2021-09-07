@@ -13,6 +13,7 @@ def test_untargeted_FGSM(untargeted_FGSM, eps=0.01):
     
     # Load the preprocessed image
     image, true_index = utils.load_example_image(preprocess=True)
+    image = image.unsqueeze(0)
 
     # Generate predictions
     _, index, confidence = utils.make_batch_prediction(model, image)
