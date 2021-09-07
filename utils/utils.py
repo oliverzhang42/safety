@@ -1,10 +1,14 @@
 import json
 import numpy as np
 import torch
-from torchvision.transforms import Normalize
+from torchvision.transforms import Compose, Normalize
 
 IMAGENET_NORMALIZE = Normalize(mean=[0.485, 0.456, 0.406], 
                                std=[0.229, 0.224, 0.225])
+IMAGENET_DENORMALIZE = Compose([
+    Normalize(mean=[0, 0, 0], std=[1/0.229, 1/0.224, 1/0.225]),
+    Normalize(mean=[-0.485, -0.456, -0.406], std=[1, 1, 1])
+])
 
 with open('safety/utils/imagenet_labels.json', 'r') as f:
     IMAGENET_LABELS = json.load(f)
