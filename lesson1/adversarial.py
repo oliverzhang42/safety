@@ -13,10 +13,6 @@ def test_untargeted_FGSM(untargeted_FGSM):
     
     # Load the preprocessed image
     image, true_index = utils.load_example_image(preprocess=True)
-    true_label = utils.get_imagenet_label(true_index)
-    true_label = true_label.split(',')[0]
-    print(f'The correct label is "{true_label}" \n')
-    print("TODO: Remove this?")
 
     # Generate predictions
     _, index, confidence = utils.make_single_prediction(model, image)
@@ -40,8 +36,8 @@ def test_untargeted_FGSM(untargeted_FGSM):
     _, axes = plt.subplots(1,2)
     axes[0].imshow(display_image)
     axes[0].set_title('Original Image')
-    axes[0].set(xlabel=f'Prediction: {label}\nConfidence: {confidence}')
+    axes[0].set(xlabel=f'Prediction: {label}\nConfidence: {confidence:.4f}')
     axes[1].imshow(display_adv_image)
     axes[1].set_title('Adversarial Image')
-    axes[1].set(xlabel=f'Prediction: {adv_label}\nConfidence: {adv_confidence}')
+    axes[1].set(xlabel=f'Prediction: {adv_label}\nConfidence: {adv_confidence:.4f}')
     plt.show()
