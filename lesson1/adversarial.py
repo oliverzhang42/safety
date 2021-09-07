@@ -65,7 +65,7 @@ def test_targeted_FGSM(targeted_FGSM, target_idx=10, eps=0.01):
     adv_image = targeted_FGSM(image.unsqueeze(0), [target_idx], model, eps).squeeze(0)
 
     # Display Results
-    _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image.unsqueeze(0))
+    _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image.squeeze(0))
     adv_label = utils.get_imagenet_label(adv_index)
     adv_label = adv_label.split(',')[0]
 
