@@ -22,7 +22,7 @@ def load_example_image(preprocess=True):
         preprocess (bool): If true, applies imagenet preprocessing.
     """
     image = np.load('safety/utils/images/panda.npy')
-    image = torch.Tensor(image)
+    image = torch.Tensor(image).cuda()
     label = 388
     if preprocess:
         image = image / 255
