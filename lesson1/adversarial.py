@@ -13,20 +13,19 @@ def test_untargeted_FGSM(untargeted_FGSM, eps=0.01):
     
     # Load the preprocessed image
     image, true_index = utils.load_example_image(preprocess=True)
-    image = image.unsqueeze(0)
 
     # Generate predictions
-    _, index, confidence = utils.make_batch_prediction(model, image)
+    _, index, confidence = utils.make_single_prediction(model, image)
     label = utils.get_imagenet_label(index)
     label = label.split(',')[0]
 
     # Generate Adversarial Example
     true_index = torch.Tensor([true_index]).type(torch.long)
-    adv_image = untargeted_FGSM(image, true_index, model, eps)
+    adv_image = untargeted_FGSM(image.unsqueeze(0), true_index, model, eps).squeeze(0)
     print(adv_image.shape)
 
     # Display Results
-    _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image)
+    _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image.squeeze(0))
     adv_label = utils.get_imagenet_label(adv_index)
     adv_label = adv_label.split(',')[0]
 
@@ -52,10 +51,9 @@ def test_targeted_FGSM(targeted_FGSM, target_idx=10, eps=0.01):
     
     # Load the preprocessed image
     image, _ = utils.load_example_image(preprocess=True)
-    image = image.unsqueeze(0)
 
     # Generate predictions
-    _, index, confidence = utils.make_single_prediction(model, image)
+    _, index, confidence = utils.make_single_prediction(model, image.unsqueeze(0))
     label = utils.get_imagenet_label(index)
     label = label.split(',')[0]
 
@@ -65,10 +63,10 @@ def test_targeted_FGSM(targeted_FGSM, target_idx=10, eps=0.01):
     print(f'The target index corresponds to a label of {target_label}!')
 
     # Generate Adversarial Example
-    adv_image = targeted_FGSM(image, [target_idx], model, eps)
+    adv_image = targeted_FGSM(image, [target_idx], model, eps).squeeze(0)
 
     # Display Results
-    _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image)
+    _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image.unsqueeze(0))
     adv_label = utils.get_imagenet_label(adv_index)
     adv_label = adv_label.split(',')[0]
 
