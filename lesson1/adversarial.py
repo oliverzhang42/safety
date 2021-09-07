@@ -22,6 +22,9 @@ def test_untargeted_attack(untargeted_adv_attack, eps=0.01):
     label = utils.get_imagenet_label(index)
     label = label.split(',')[0]
 
+    # Scaling up the epsilon to adjust for normalization
+    eps = eps * 1/0.22
+
     # Generate Adversarial Example
     true_index = torch.Tensor([true_index]).type(torch.long)
     adv_image = untargeted_adv_attack(image.unsqueeze(0), true_index, model, eps=eps).squeeze(0)
@@ -53,7 +56,10 @@ def test_targeted_attack(targeted_adv_attack, target_idx=10, eps=0.01):
     
     # Load the preprocessed image
     image, _ = utils.load_example_image(preprocess=True)
-
+    
+    # Scaling up the epsilon to adjust for normalization
+    eps = eps * 1/0.22
+    
     # Generate predictions
     _, index, confidence = utils.make_single_prediction(model, image)
     label = utils.get_imagenet_label(index)
@@ -178,6 +184,9 @@ def attack_normal_model(
     target_label = utils.get_imagenet_label(target_idx)
     target_label = target_label.split(',')[0]
     print(f'The target index corresponds to a label of {target_label}!')
+
+    # Scaling up the epsilon to adjust for normalization
+    eps = eps * 1/0.22
 
     # Generate Adversarial Example
     target_idx = torch.Tensor([target_idx]).type(torch.long)
