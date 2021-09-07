@@ -13,11 +13,9 @@ def test_untargeted_FGSM(untargeted_FGSM, eps=0.01):
     
     # Load the preprocessed image
     image, true_index = utils.load_example_image(preprocess=True)
-    image = image.unsqueeze(0)
-    print(image.shape)
 
     # Generate predictions
-    _, index, confidence = utils.make_single_prediction(model, image)
+    _, index, confidence = utils.make_batch_prediction(model, image)
     label = utils.get_imagenet_label(index)
     label = label.split(',')[0]
 

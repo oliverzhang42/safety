@@ -44,6 +44,20 @@ def make_single_prediction(model, image):
     return pred, pred_index, pred_confidence
 
 
+def make_batch_prediction(model, image_batch):
+    """Makes predictions on a batch of images
+
+    Args:
+        model (nn.Module): the prediction network
+        image_batch (torch.Tensor): the batch of images
+    """
+    pred = model.forward(image_batch)
+    pred = F.softmax(pred, dim=1)
+    pred_indices = pred.argmax(dim=1).item()
+    pred_confidences = pred[pred_indices]
+    return pred, pred_indices, pred_confidences
+
+
 def get_imagenet_label(index):
     """Gets the imagenet label of certain index
 
