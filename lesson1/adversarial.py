@@ -21,7 +21,7 @@ def test_untargeted_FGSM(untargeted_FGSM):
 
     # Generate Adversarial Example
     true_index = torch.Tensor([true_index]).type(torch.long)
-    adv_image = untargeted_FGSM(image, true_index, model, 0.01)
+    adv_image = untargeted_FGSM(image, true_index, model, 0.1)
 
     # Display Results
     _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image)
