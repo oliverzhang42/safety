@@ -10,6 +10,7 @@ IMAGENET_DENORMALIZE = Compose([
     Normalize(mean=[0, 0, 0], std=[1/0.229, 1/0.224, 1/0.225]),
     Normalize(mean=[-0.485, -0.456, -0.406], std=[1, 1, 1])
 ])
+torch.set_default_tensor_type(torch.cuda.FloatTensor)
 
 with open('safety/utils/imagenet_labels.json', 'r') as f:
     IMAGENET_LABELS = json.load(f)
@@ -22,7 +23,7 @@ def load_example_image(preprocess=True):
         preprocess (bool): If true, applies imagenet preprocessing.
     """
     image = np.load('safety/utils/images/panda.npy')
-    image = torch.Tensor(image).cuda()
+    image = torch.Tensor(image)
     label = 388
     if preprocess:
         image = image / 255
