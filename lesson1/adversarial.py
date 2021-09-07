@@ -16,12 +16,12 @@ def test_untargeted_FGSM(untargeted_FGSM):
   # Load the preprocessed image
   image, true_index = utils.load_example_image(preprocess=True)
   true_label = utils.get_imagenet_label(true_index)
-  print(f'The correct label is "{true_label}"')
+  print(f'The correct label is "{true_label}" \n')
 
   # Generate predictions
   _, index, confidence = utils.make_single_prediction(model, image)
   label = utils.get_imagenet_label(index)
-  print(f'The original prediction was {label} with logit value {confidence}.')
+  print(f'The original prediction was {label} with logit value {confidence}. \n')
 
   # Generate Adversarial Example
   true_index = torch.Tensor([true_index]).type(torch.long)
