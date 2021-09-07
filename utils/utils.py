@@ -1,6 +1,7 @@
 import json
 import numpy as np
 import torch
+import torch.nn.functional as F
 from torchvision.transforms import Compose, Normalize
 
 IMAGENET_NORMALIZE = Normalize(mean=[0.485, 0.456, 0.406], 
@@ -37,7 +38,7 @@ def make_single_prediction(model, image):
         image (torch.Tensor): the input image
     """
     pred = model.forward(image.unsqueeze(0))
-    pred = torch.softmax(pred)[0]
+    pred = F.softmax(pred)[0]
     pred_index = pred.argmax().item()
     pred_confidence = pred[pred_index]
     return pred, pred_index, pred_confidence
