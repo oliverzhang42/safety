@@ -91,7 +91,7 @@ def display_adv_images(image, adv_image, pred, adv_pred, channels_first=False, d
         adv_image = adv_image.detach().cpu().numpy()
     if channels_first:
         image = np.moveaxis(image, 0, 2)
-        adv_image = np.moveaxis(imaadv_imagege, 0, 2)
+        adv_image = np.moveaxis(adv_image, 0, 2)
     image = image.clip(0,1)
     adv_image = adv_image.clip(0,1)
     _, axes = plt.subplots(1,2)
