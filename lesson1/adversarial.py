@@ -1,5 +1,3 @@
-# Everything Necessary for the Adversarial Examples Class
-import matplotlib.pyplot as plt
 import numpy as np
 import torch
 import torch.nn.functional as F
