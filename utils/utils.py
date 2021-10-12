@@ -26,8 +26,8 @@ def load_example_image(preprocess=True):
     image = np.load('safety/utils/images/panda.npy')
     image = torch.Tensor(image)
     label = 388
+    image = image / 255
     if preprocess:
-        image = image / 255
         image = IMAGENET_NORMALIZE(image)
     return image, label
 
