@@ -67,3 +67,37 @@ def get_imagenet_label(index):
     """
     label = IMAGENET_LABELS[str(index)]
     return label
+
+
+def display_adv_images(image, adv_image, pred, adv_pred, channels_first=False, denormalize=False):
+    """Displays the normal and adversarial image side by side
+    
+    Args:
+        image (torch.Tensor): The regular image
+        adv_image (torch.Tensor): The adversarial image
+        pred (float): A tuple containing (label, confidence) of the image
+        adv_pred (float): A tuple containing (label, adv_confidence) of the adv_image
+        channels_first (bool): Whether the images are channels first.
+        denormalize (bool): Whether we should denormalize the image.
+    """
+    label, confidence = pred
+    adv_label, adv_confidence = adv_pred
+    if denormalize:
+        image = IMAGENET_DENORMALIZE(image).detach().cpu().numpy()
+        adv_image = IMAGENET_DENORMALIZE(adv_image).detach().cpu().numpy()
+    else:
+        image = image.detach().cpu().numpy()
+        adv_image = adv_image.detach().cpu().numpy()
+    if channels_first:
+        image = np.moveaxis(image, 0, 2)
+        adv_image = np.moveaxis(image, 0, 2)
+    image = image.clip(0,1)
+    adv_image = adv_image.clip(0,1)
+    _, axes = plt.subplots(1,2)
+    axes[0].imshow(image)
+    axes[0].set_title('Original Image')
+    axes[0].set(xlabel=f'Prediction: {label}\nConfidence: {confidence:.4f}')
+    axes[1].imshow(adv_image)
+    axes[1].set_title('Adversarial Image')
+    axes[1].set(xlabel=f'Prediction: {adv_label}\nConfidence: {adv_confidence:.4f}')
+    plt.show()
