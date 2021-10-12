@@ -42,7 +42,7 @@ def test_untargeted_attack(untargeted_adv_attack, eps=0.01):
         (label, confidence),
         (adv_label, adv_confidence),
         channels_first=True,
-        denormalize=True
+        denormalize=False
     )
 
 
@@ -86,7 +86,7 @@ def test_targeted_attack(targeted_adv_attack, target_idx=10, eps=0.01):
         (label, confidence),
         (adv_label, adv_confidence),
         channels_first=True,
-        denormalize=True
+        denormalize=False
     )
 
 
@@ -138,7 +138,7 @@ def attack_normal_model(
         (label, confidence),
         (adv_label, adv_confidence),
         channels_first=True,
-        denormalize=True
+        denormalize=False
     )
 
 
@@ -201,6 +201,6 @@ def attack_adversarially_trained_model(
         (label, confidence),
         (adv_label, adv_confidence),
         channels_first=True,
-        denormalize=True
+        denormalize=False
     )
 
