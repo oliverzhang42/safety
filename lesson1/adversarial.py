@@ -30,9 +30,10 @@ def test_untargeted_attack(untargeted_adv_attack, eps=0.01):
         utils.IMAGENET_NORMALIZE, 
         eps=eps
     ).squeeze(0)
+    norm_adv_image = utils.IMAGENET_NORMALIZE(adv_image.squeeze(0))
 
     # Display Results
-    _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image.squeeze(0))
+    _, adv_index, adv_confidence = utils.make_single_prediction(model, norm_adv_image)
     adv_label = utils.get_imagenet_label(adv_index)
     adv_label = adv_label.split(',')[0]
 
@@ -75,9 +76,10 @@ def test_targeted_attack(targeted_adv_attack, target_idx=10, eps=0.01):
         utils.IMAGENET_NORMALIZE, 
         eps=eps
     ).squeeze(0)
+    norm_adv_image = utils.IMAGENET_NORMALIZE(adv_image.squeeze(0))
 
     # Display Results
-    _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image.squeeze(0))
+    _, adv_index, adv_confidence = utils.make_single_prediction(model, norm_adv_image)
     adv_label = utils.get_imagenet_label(adv_index)
     adv_label = adv_label.split(',')[0]
 
@@ -128,9 +130,10 @@ def attack_normal_model(
         num_steps=num_steps,
         step_size=step_size
     ).squeeze(0)
+    norm_adv_image = utils.IMAGENET_NORMALIZE(adv_image.squeeze(0))
 
     # Display Results
-    _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image.squeeze(0))
+    _, adv_index, adv_confidence = utils.make_single_prediction(model, norm_adv_image)
     adv_label = utils.get_imagenet_label(adv_index)
     adv_label = adv_label.split(',')[0]
 
@@ -191,9 +194,10 @@ def attack_adversarially_trained_model(
         num_steps=num_steps,
         step_size=step_size
     ).squeeze(0)
+    norm_adv_image = utils.IMAGENET_NORMALIZE(adv_image.squeeze(0))
 
     # Display Results
-    _, adv_index, adv_confidence = utils.make_single_prediction(model, adv_image.squeeze(0))
+    _, adv_index, adv_confidence = utils.make_single_prediction(model, norm_adv_image)
     adv_label = utils.get_imagenet_label(adv_index)
     adv_label = adv_label.split(',')[0]
 
