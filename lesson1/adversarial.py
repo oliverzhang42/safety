@@ -13,10 +13,11 @@ def test_untargeted_attack(untargeted_adv_attack, eps=0.01):
     print('')
     
     # Load the preprocessed image
-    image, true_index = utils.load_example_image(preprocess=True)
+    image, true_index = utils.load_example_image(preprocess=False)
+    norm_image = utils.IMAGENET_NORMALIZE(image / 255)
 
     # Generate predictions
-    _, index, confidence = utils.make_single_prediction(model, image)
+    _, index, confidence = utils.make_single_prediction(model, norm_image)
     label = utils.get_imagenet_label(index)
     label = label.split(',')[0]
 
@@ -37,7 +38,7 @@ def test_untargeted_attack(untargeted_adv_attack, eps=0.01):
 
     # Display Images
     utils.display_adv_images(
-        utils.IMAGENET_DENORMALIZE(image), 
+        image, 
         adv_image,
         (label, confidence),
         (adv_label, adv_confidence),
@@ -52,10 +53,11 @@ def test_targeted_attack(targeted_adv_attack, target_idx=10, eps=0.01):
     print('')
     
     # Load the preprocessed image
-    image, _ = utils.load_example_image(preprocess=True)
+    image, _ = utils.load_example_image(preprocess=False)
+    norm_image = utils.IMAGENET_NORMALIZE(image / 255)
     
     # Generate predictions
-    _, index, confidence = utils.make_single_prediction(model, image)
+    _, index, confidence = utils.make_single_prediction(model, norm_image)
     label = utils.get_imagenet_label(index)
     label = label.split(',')[0]
 
@@ -81,7 +83,7 @@ def test_targeted_attack(targeted_adv_attack, target_idx=10, eps=0.01):
 
     # Display Images
     utils.display_adv_images(
-        utils.IMAGENET_DENORMALIZE(image),
+        image,
         adv_image,
         (label, confidence),
         (adv_label, adv_confidence),
@@ -102,10 +104,11 @@ def attack_normal_model(
     print('')
     
     # Load the preprocessed image
-    image, _ = utils.load_example_image(preprocess=True)
+    image, _ = utils.load_example_image(preprocess=False)
+    norm_image = utils.IMAGENET_NORMALIZE(image / 255)
 
     # Generate predictions
-    _, index, confidence = utils.make_single_prediction(model, image)
+    _, index, confidence = utils.make_single_prediction(model, norm_image)
     label = utils.get_imagenet_label(index)
     label = label.split(',')[0]
 
@@ -133,7 +136,7 @@ def attack_normal_model(
 
     # Display Images
     utils.display_adv_images(
-        utils.IMAGENET_DENORMALIZE(image),
+        image,
         adv_image,
         (label, confidence),
         (adv_label, adv_confidence),
@@ -165,10 +168,10 @@ def attack_adversarially_trained_model(
     
     # Load the preprocessed image
     image, _ = utils.load_example_image(preprocess=False)
-    image = image / 255
+    norm_image = utils.IMAGENET_NORMALIZE(image / 255)
 
     # Generate predictions
-    _, index, confidence = utils.make_single_prediction(model, image)
+    _, index, confidence = utils.make_single_prediction(model, norm_image)
     label = utils.get_imagenet_label(index)
     label = label.split(',')[0]
 
@@ -196,7 +199,7 @@ def attack_adversarially_trained_model(
 
     # Display Images
     utils.display_adv_images(
-        utils.IMAGENET_DENORMALIZE(image),
+        image,
         adv_image,
         (label, confidence),
         (adv_label, adv_confidence),
