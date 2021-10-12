@@ -14,7 +14,7 @@ def test_untargeted_attack(untargeted_adv_attack, eps=0.01):
     
     # Load the preprocessed image
     image, true_index = utils.load_example_image(preprocess=False)
-    norm_image = utils.IMAGENET_NORMALIZE(image / 255)
+    norm_image = utils.IMAGENET_NORMALIZE(image)
 
     # Generate predictions
     _, index, confidence = utils.make_single_prediction(model, norm_image)
@@ -54,7 +54,7 @@ def test_targeted_attack(targeted_adv_attack, target_idx=10, eps=0.01):
     
     # Load the preprocessed image
     image, _ = utils.load_example_image(preprocess=False)
-    norm_image = utils.IMAGENET_NORMALIZE(image / 255)
+    norm_image = utils.IMAGENET_NORMALIZE(image)
     
     # Generate predictions
     _, index, confidence = utils.make_single_prediction(model, norm_image)
@@ -105,7 +105,7 @@ def attack_normal_model(
     
     # Load the preprocessed image
     image, _ = utils.load_example_image(preprocess=False)
-    norm_image = utils.IMAGENET_NORMALIZE(image / 255)
+    norm_image = utils.IMAGENET_NORMALIZE(image)
 
     # Generate predictions
     _, index, confidence = utils.make_single_prediction(model, norm_image)
@@ -168,7 +168,7 @@ def attack_adversarially_trained_model(
     
     # Load the preprocessed image
     image, _ = utils.load_example_image(preprocess=False)
-    norm_image = utils.IMAGENET_NORMALIZE(image / 255)
+    norm_image = utils.IMAGENET_NORMALIZE(image)
 
     # Generate predictions
     _, index, confidence = utils.make_single_prediction(model, norm_image)
