@@ -166,7 +166,7 @@ def attack_adversarially_trained_model(
     step_size=0.01
 ):
     # Load the models
-    model = get_adv_trained_model()
+    model = get_adv_trained_model().eval()
     print('')
     
     # Load the preprocessed image
